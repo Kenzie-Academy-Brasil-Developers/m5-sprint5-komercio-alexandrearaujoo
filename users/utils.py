@@ -45,7 +45,7 @@ class CustomUserManager(BaseUserManager):
             password,
             first_name, 
             last_name, 
-            True, 
+            False, 
             True, 
             **extra_fields
         )
