@@ -5,8 +5,14 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta: 
         model = User
-        fields = '__all__'
-        extra_kwargs = {'email': {'validators':[UniqueValidator(queryset=User.objects.all(), message='email already exists')]}}
+        fields = ['id', 'email', 'first_name', 'last_name','password','is_seller','date_joined']
+        extra_kwargs = {
+            'email': {
+                'validators':
+                [UniqueValidator(queryset=User.objects.all(), message='email already exists')]
+            },
+            'password': {'write_only': True}
+        }
 
     
     def create (self, validated_data):

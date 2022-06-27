@@ -8,6 +8,8 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=50)
     is_seller = models.BooleanField()
 
+    username = None
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
