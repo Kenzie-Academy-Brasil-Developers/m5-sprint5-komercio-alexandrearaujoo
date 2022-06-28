@@ -6,5 +6,4 @@ class Product(models.Model):
     quantity = models.IntegerField()
     is_active = models.BooleanField(default=True)
 
-    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='products')
-    
+    seller = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='products')
