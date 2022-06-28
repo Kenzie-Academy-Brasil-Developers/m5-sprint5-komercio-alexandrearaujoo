@@ -10,7 +10,7 @@ class PostProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class GetProductsSerializer(serializers.ModelSerializer):
-    seller_id = UserSerializer(read_only=True).id
+    seller_id = UserSerializer(read_only=True)
 
     class Meta:
         model = Product
