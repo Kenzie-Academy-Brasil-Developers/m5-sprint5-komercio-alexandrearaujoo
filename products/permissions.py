@@ -5,11 +5,12 @@ class ProductPermissionsCustom(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         
-        return request.user.is_seller and request.user.is_authenticated
+        return request.user.is_authenticated and request.user.is_seller 
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        if obj.owner_id == request.user.id:
+        if request.user.is_authenticated and obj.seller_id == request.user.id:
             return True
+    

@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 
@@ -19,7 +18,7 @@ class ListCreateView(SerializerByMethodMixin,generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(seller=self.request.user)
 
-class RetriveUpdateView(generics.RetrieveUpdateAPIView):
+class RetriveUpdateView(SerializerByMethodMixin,generics.RetrieveUpdateAPIView):
     queryset = Product.objects.all()
     serializer_map = {
         'GET': GetProductsSerializer,

@@ -10,8 +10,6 @@ class PostProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class GetProductsSerializer(serializers.ModelSerializer):
-    seller_id = UserSerializer(read_only=True)
-
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['id', 'description', 'price', 'quantity', 'is_active', 'seller_id']
