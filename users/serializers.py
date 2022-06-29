@@ -18,6 +18,17 @@ class UserSerializer(serializers.ModelSerializer):
     def create (self, validated_data):
         return User.objects.create_user(**validated_data)
 
+    def update (self, instance, validated_data):
+        for key, value in validated_data.items():
+            if key == 'password': 
+                instance.set_password(value)
+            else:
+                setattr(instance, key, value)
+
+        instance.save()
+
+        return instance
+
 
 class DetailUserSerializer(serializers.ModelSerializer):
     class Meta:
