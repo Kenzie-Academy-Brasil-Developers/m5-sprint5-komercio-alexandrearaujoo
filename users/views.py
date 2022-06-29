@@ -1,9 +1,12 @@
 from rest_framework import generics
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView, Response, status
 
 from .serializers import LoginSerializer, UserSerializer
+
+from .permissions import UserPermissionsCustom
 
 from .models import User
 
@@ -19,6 +22,14 @@ class ListUsersDateJoinedView(generics.ListAPIView):
     def get_queryset(self):
       num_users = self.kwargs["num"]
       return self.queryset.order_by("-date_joined")[0:num_users]
+
+class UpdateUserView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [UserPermissionsCustom]
+
 
 class LoginView(APIView):
     def post(self, request): 
