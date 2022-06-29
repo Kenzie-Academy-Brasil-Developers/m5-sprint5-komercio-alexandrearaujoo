@@ -4,9 +4,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView, Response, status
 
-from .serializers import LoginSerializer, UserSerializer
+from .serializers import LoginSerializer, UserSerializer, DetailUserSerializer
 
-from .permissions import UserPermissionsCustom
+from .permissions import UserPermissionsCustom, SuperUserPermissionsCustom
 
 from .models import User
 
@@ -30,6 +30,12 @@ class UpdateUserView(generics.UpdateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [UserPermissionsCustom]
 
+class UpdateUserWithSuperuserView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = DetailUserSerializer
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [SuperUserPermissionsCustom]
 
 class LoginView(APIView):
     def post(self, request): 

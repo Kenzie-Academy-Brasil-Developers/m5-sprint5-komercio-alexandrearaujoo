@@ -19,6 +19,20 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 
+class DetailUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'email', 
+            'first_name', 
+            'last_name',
+            'is_seller',
+            'date_joined',
+            'is_active'
+        ]
+
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(max_length=255, write_only=True)
