@@ -2,7 +2,7 @@ from rest_framework.test import APITestCase
 from users.models import User
 from faker import Faker
 
-class CreateSellerTest(APITestCase):
+class UserViewTest(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
