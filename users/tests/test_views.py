@@ -54,6 +54,14 @@ class CreateSellerTest(APITestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEquals(response.data, expected)
 
+    def test_create_user_with_same_email(self):
+        self.client.post('/api/accounts/', self.seller, format='json')
+
+        response = self.client.post('/api/accounts/', self.seller, format='json')
+
+        self.assertEqual(response.status_code, 400)
+        self.assertTrue(response.data['email'])
+
     def test_can_list_all_users(self):
         self.user_1.save()
         self.user_2.save()
