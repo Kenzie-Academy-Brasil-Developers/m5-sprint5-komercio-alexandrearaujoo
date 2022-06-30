@@ -55,5 +55,3 @@ class UserModelTest(TestCase):
         self.assertEqual(self.user.last_name, self.data["last_name"])
         self.assertEqual(self.user.is_seller, self.data["is_seller"])
         self.assertEqual(self.user.is_active, True)
-
-        
