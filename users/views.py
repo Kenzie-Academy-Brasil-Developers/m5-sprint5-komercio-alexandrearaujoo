@@ -4,6 +4,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView, Response, status
 
+from project.pagination import CustomPageNumberPagination
+
 from .serializers import LoginSerializer, UserSerializer, DetailUserSerializer
 
 from .permissions import UserPermissionsCustom, SuperUserPermissionsCustom
@@ -15,9 +17,13 @@ class ListCreateView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    pagination_class = CustomPageNumberPagination
+
 class ListUsersDateJoinedView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
       num_users = self.kwargs["num"]

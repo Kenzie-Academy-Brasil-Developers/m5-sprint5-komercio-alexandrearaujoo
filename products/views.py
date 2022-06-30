@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
+from project.pagination import CustomPageNumberPagination
 
 from .models import Product
 from .serializers import DetailProductSerializer, ListProductsSerializer
@@ -12,6 +13,7 @@ class ListCreateView(SerializerByMethodMixin,generics.ListCreateAPIView):
         'GET': ListProductsSerializer,
         'POST': DetailProductSerializer
     }
+    pagination_class = CustomPageNumberPagination
     authentication_classes = [TokenAuthentication]
     permission_classes = [ProductPermissionsCustom]
 
