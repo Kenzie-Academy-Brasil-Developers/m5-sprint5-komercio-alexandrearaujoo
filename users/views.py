@@ -14,7 +14,7 @@ from .models import User
 
 
 class ListCreateView(generics.ListCreateAPIView):
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
 
     pagination_class = CustomPageNumberPagination

@@ -116,7 +116,19 @@ class ProductViewsTest(APITestCase):
         response = self.client.get('/api/products/')
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(products), len(response.data))
+        self.assertEqual(len(products), len(response.json()['results']))
+
+    def test_list_one_product(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+        self.prod['seller'] = self.user_1.id
+
+        self.client.post('/api/products/', self.prod, format='json')
+
+        response = self.client.get('/api/products/1/')
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.data['is_active'])
         
     def test_update_product_being_seller(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)

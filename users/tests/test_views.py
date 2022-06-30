@@ -71,7 +71,19 @@ class UserViewTest(APITestCase):
         response = self.client.get('/api/accounts/')
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(users), len(response.data))
+        self.assertEqual(len(users), len(response.json()['results']))
+
+    def test_list_users_by_date_joined(self):
+        self.user_1.save()
+        self.user_2.save()
+
+        users = User.objects.all()
+
+        response = self.client.get('/api/accounts/newest/2/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(users), len(response.json()['results']))
+
 
     def test_send_invalid_keys_seller(self):
         invalid_user = {

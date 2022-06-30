@@ -8,7 +8,7 @@ from .mixins import SerializerByMethodMixin
 from .permissions import ProductPermissionsCustom
 
 class ListCreateView(SerializerByMethodMixin,generics.ListCreateAPIView):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by('id')
     serializer_map = {
         'GET': ListProductsSerializer,
         'POST': DetailProductSerializer
